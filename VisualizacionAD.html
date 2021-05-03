@@ -20,6 +20,11 @@
     <title>MODULO ADMINISTRADOR</title>
   </head>
   <body onload="ObtenerPacientes(), ObtenerEnfermeras(),ObtenerDoctores(), ObtenerMedicamentos()" style="background-color: #faf8f8;">
+  
+    
+  
+  
+  
     <center>
         <div class="badge bg-primary text-wrap" style="width: 77rem; ">
           <h1 style="padding-top: 5%;">UHospital - Modulo Administrador </h1>
@@ -312,13 +317,13 @@
             .then(response =>{
                 console.log(response);
                 alert(response.Mensaje)
-                
-            })
-            
-            ObtenerPacientes()
+                ObtenerPacientes()
             ObtenerEnfermeras()
             ObtenerDoctores()
             ObtenerMedicamentos()
+            })
+            
+            
             }
 
           </script>
@@ -403,12 +408,12 @@
           .then(response =>{
               console.log(response);
               alert(response.Mensaje)
-              
-          })
-          ObtenerPacientes()
+              ObtenerPacientes()
             ObtenerEnfermeras()
             ObtenerDoctores()
             ObtenerMedicamentos()
+          })
+         
           }
 
         </script>
@@ -495,12 +500,12 @@
         .then(response =>{
             console.log(response);
             alert(response.Mensaje)
-            
-        })
-        ObtenerPacientes()
+            ObtenerPacientes()
             ObtenerEnfermeras()
             ObtenerDoctores()
             ObtenerMedicamentos()
+        })
+        
         }
 
       </script>
@@ -583,12 +588,13 @@
           .then(response =>{
               console.log(response);
               alert(response.Mensaje)
-              
-          })
-          ObtenerPacientes()
+              ObtenerPacientes()
             ObtenerEnfermeras()
             ObtenerDoctores()
             ObtenerMedicamentos()
+              
+          })
+          
           }
 
         </script>
