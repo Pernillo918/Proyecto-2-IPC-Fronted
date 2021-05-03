@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title></title> 
+	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, minimum-scale=1.0">
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" >
+	<link rel="stylesheet"  type="text/css" href="estilos.css">
+	
+
+</head>
+<body>
+    <form class="formulario">
+    
+        <h1>UHospital</h1>
+         <div class="contenedor">
+         
+         
+             
+            <div class="input-contenedor">
+                <i class="fas fa-user icon"></i>
+                <input type="text" placeholder="Nombre de usuario" class="form-control" id="username">
+            </div>
+             <div class="input-contenedor">
+            <i class="fas fa-key icon"></i>
+             <input type="password" placeholder="Contraseña" id="contra">
+             
+             </div>
+             <input onclick="PresionarBoton()" type="button"  lass="form-control" value="Iniciar sesion" class="button">
+             
+
+            <p>¿Aun no te has registrado?<a class="link" href="Pagina.html">Registrar</a></p>
+         </div>
+        </form>
+
+
+        <script>
+
+            function PresionarBoton(){
+           
+            var usuario =document.querySelector('#username').value
+            var contraseña =document.querySelector('#contra').value
+             
+                /*METODO DE VERIFICACION DE INICIO DE SESION*/
+
+                if(usuario == "admin" && contraseña == 1234) {
+                        location.href="ModuloAdministrador.html"
+                        
+                }else if (true ){
+                    fetch('https://backend-proyecto2ipc.herokuapp.com/Personas', {
+                method: 'GET', 
+                headers:{
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',}})
+
+                .then(res => res.json())
+                .catch(err => {
+                    console.error('Error:', err)
+                    
+                })
+            
+                .then(response =>{
+                    
+
+                    for (var i in response){
+                
+                        if (usuario==response[i].Username && contraseña==response[i].Contra){
+                            sessionStorage.setItem("Paciente", response[i].Nombre)
+                            location.href="Modulo Pacientes.html"
+
+                            
+                        }
+            
+                    }
+                    
+                })
+                
+
+                fetch('https://backend-proyecto2ipc.herokuapp.com/Enfermera', {
+                method: 'GET', 
+                headers:{
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',}})
+
+                .then(res => res.json())
+                .catch(err => {
+                    console.error('Error:', err)
+                    
+                })
+            
+                .then(response =>{
+                    
+
+                    for (var i in response){
+                
+                        if (usuario==response[i].Username && contraseña==response[i].Contra){
+                            sessionStorage.setItem("Enfermera", response[i].Nombre)
+                            location.href="Modulo Enfermeras.html"
+                            
+                        }
+            
+                    }
+                    
+                })
+
+
+                fetch('https://backend-proyecto2ipc.herokuapp.com/Doctor', {
+                method: 'GET', 
+                headers:{
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',}})
+
+                .then(res => res.json())
+                .catch(err => {
+                    console.error('Error:', err)
+                    
+                })
+            
+                .then(response =>{
+                    
+
+                    for (var i in response){
+
+                       
+                
+                        if (usuario==response[i].Username && contraseña==response[i].Contra){
+                            sessionStorage.setItem("Doctor", response[i].Nombre)
+                            location.href="Modulo Doctor.html"
+                           
+                        }else{
+                            console.log("USUARIO O CONTRASEÑA INCORRECTA")
+                            
+                        }
+            
+                    }
+                    
+                })
+                    
+
+
+
+                }
+                
+               
+
+
+                
+
+
+            }
+         </script>
+
+
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+    <title>Actualizacion de datos!</title>
+  </head>
+  <body onload="ObtenerDatos()">
+    <center>
+        <h1 style="color: #f5f7fa;  font-family: Century Gothic; text-align: center;  font-size: 60px; background-color: rgb(129, 128, 128);
+         width: auto;  height: 90px;  padding-top: 15px;">D A T O S</h1>
+      </center>
+
+      <br>
+      <br>
+      <div style="width: 45%; padding-left: 300px; padding-top: 2%; float: left;">
+                  
+                       
+                           
+        <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="nombre" readonly>
+        </div>
+        <div class="mb-3">
+        <label for="precio" class="form-label">Precio</label>
+        <input type="text" class="form-control" id="precio" readonly>
+        </div>
+        <div class="mb-3">
+        <label for="descripcion" class="form-label">Descripcion</label>
+        <input type="text" class="form-control" id="descripcion" readonly>
+        </div>
+        <div class="mb-3">
+         <label for="cantidad" class="form-label" >Cantidad</label>
+         <input type="text" class="form-control" id="cantidad" readonly>
+         </div>
+        
+    
+   </div>  
+   
+
+    
+      <div style=" padding-top: 30px; padding-left: 1050px; ">
+        <button type="button" onclick="regresar()" class="btn btn-danger">REGRESAR</button>
+        </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
+    <script>
+
+        function regresar(){
+            location.href="VisualizacionAD.html"
+        }
+
+
+         // METODO OBTENER UN DATO
+        function ObtenerDatos(){ 
+            var usuario = sessionStorage.medicamento          
+            fetch(`https://backend-proyecto2ipc.herokuapp.com/Medicamentos/${usuario}`, {
+            method: 'GET',
+            headers:{
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',}})
+            .then(res => res.json())
+            .catch(err => {
+                console.error('Error:', err)
+                alert(" No se pudo cargar datos")
+            })
+            .then(response =>{
+               document.querySelector('#nombre').value = response.Nombre
+               document.querySelector('#precio').value = response.Precio
+               document.querySelector('#descripcion').value = response.Descripcion
+               document.querySelector('#cantidad').value = response.Cantidad
+           
+            
+                
+            })
+        }
+
+
+             // METODO MODIFICAR
+  function Modificar(){
+            
+            var nombre = document.querySelector('#nombre').value
+            var precio = document.querySelector('#precio').value
+            var descripcion = document.querySelector('#descripcion').value
+            var cantidad = document.querySelector('#cantidad').value
+       
+            
+
+            
+
+            
+            objeto = {
+            'nombre': nombre,
+            'precio':precio,
+            'descripcion': descripcion,
+            'cantidad':cantidad
+            }
+
+            console.log(objeto)
+
+            fetch(`https://backend-proyecto2ipc.herokuapp.com/Medicamentos/${nombre}`, {
+            method: 'PUT',
+            body: JSON.stringify(objeto),
+            headers:{
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',}})
+            .then(res => res.json())
+            .catch(err => {
+                console.error('Error:', err)
+                alert("Ocurrio un error, ver la consola")
+            })
+            .then(response =>{
+                console.log(response);
+                alert(response.Mensaje)
+            })
+        }
+
+
+
+
+
+    </script>
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+    
+  </body>
+</html>

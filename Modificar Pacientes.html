@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+    <title>Actualizacion de datos!</title>
+  </head>
+  <body onload="ObtenerDatos()">
+    <center>
+        <h1 style="color: #f5f7fa;  font-family: Century Gothic; text-align: center;  font-size: 60px; background-color: black;
+         width: auto;  height: 90px;  padding-top: 15px;">A C T U A L I Z A R &nbsp&nbsp&nbsp D A T O S</h1>
+      </center>
+
+      <br>
+      <br>
+      <div style="width: 45%; padding-left: 300px; padding-top: 2%; float: left;">
+                  
+                       
+                           
+        <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="nombre" readonly>
+        </div>
+        <div class="mb-3">
+        <label for="apellido" class="form-label">Apellido</label>
+        <input type="text" class="form-control" id="apellido">
+        </div>
+        <div class="mb-3">
+        <label for="nacimiento" class="form-label">Fecha de nacimiento</label>
+        <input type="text" class="form-control" id="nacimiento">
+        </div>
+        <div class="mb-3">
+         <label for="sexo" class="form-label" >Sexo</label>
+         <input type="text" class="form-control" id="sexo">
+         </div>
+        
+    
+   </div>  
+   
+
+ 
+   <div style="width:30%; padding-left: 100px; padding-top: 2%; float: left; ">
+         
+         <div class="mb-3">
+         <label for="username" class="form-label">Nombre de usuario</label>
+         <input type="text" class="form-control" id="username">
+         </div>
+         <div class="mb-3">
+         <label for="contra" class="form-label">Contraseña</label>
+         <input type="text" class="form-control" id="contra">
+         </div>
+         <div class="mb-3">
+           <label for="telefono" class="form-label">Numero</label>
+           <input type="text" class="form-control" id="telefono">
+           </div>
+
+</div>
+    
+    
+     
+    <div style=" padding-top: 375px; ">
+      <center>
+        <button onclick="Modificar()" type="button" style="width: 50%;" class="btn btn-dark">ACTUALIZAR</button>
+       </center>
+      </div>
+      <div style=" padding-top: 30px; padding-left: 1050px; ">
+        <button type="button" onclick="regresar()" class="btn btn-danger">REGRESAR</button>
+        </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
+    <script>
+
+        function regresar(){
+            location.href="Modulo Pacientes.html"
+        }
+
+
+         // METODO OBTENER UN DATO
+         function ObtenerDatos(){ 
+            var usuario = sessionStorage.Paciente          
+            fetch(`https://backend-proyecto2ipc.herokuapp.com/Personas/${usuario}`, {
+            method: 'GET',
+            headers:{
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',}})
+            .then(res => res.json())
+            .catch(err => {
+                console.error('Error:', err)
+                alert("Ocurrio un error en  la consola")
+            })
+            .then(response =>{
+               document.querySelector('#nombre').value = response.Nombre
+               document.querySelector('#apellido').value = response.Apellido
+               document.querySelector('#nacimiento').value = response.Nacimiento
+               document.querySelector('#sexo').value = response.Sexo
+               document.querySelector('#username').value = response.Username
+               document.querySelector('#contra').value = response.Contra
+               document.querySelector('#telefono').value = response.Telefono
+            
+                
+            })
+        }
+
+
+             // METODO MODIFICAR
+  function Modificar(){
+            
+            var nombre = document.querySelector('#nombre').value
+            var apellido = document.querySelector('#apellido').value
+            var nacimiento = document.querySelector('#nacimiento').value
+            var sexo = document.querySelector('#sexo').value
+            var username = document.querySelector('#username').value
+            var contra = document.querySelector('#contra').value
+            var telefono = document.querySelector('#telefono').value
+            
+
+            
+
+            
+            var objeto = {
+                'nombre': nombre,
+                'apellido': apellido,
+                'nacimiento': nacimiento,
+                'sexo': sexo,
+                'username': username,
+                'contra': contra,
+                'telefono': telefono
+                
+            }
+            console.log(objeto)
+
+            fetch(`https://backend-proyecto2ipc.herokuapp.com/Personas/${nombre}`, {
+            method: 'PUT',
+            body: JSON.stringify(objeto),
+            headers:{
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',}})
+            .then(res => res.json())
+            .catch(err => {
+                console.error('Error:', err)
+                alert("Ocurrio un error, ver la consola")
+            })
+            .then(response =>{
+                console.log(response);
+                alert(response.Mensaje)
+            })
+        }
+
+
+    </script>
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+    
+  </body>
+</html>
