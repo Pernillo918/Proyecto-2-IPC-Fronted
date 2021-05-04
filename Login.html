@@ -37,7 +37,7 @@
         <script>
 
             function PresionarBoton(){
-                var comprobacion
+              
            
             var usuario =document.querySelector('#username').value
             var contraseña =document.querySelector('#contra').value
@@ -47,7 +47,7 @@
                 if(usuario == "admin" && contraseña == 1234) {
                         location.href="ModuloAdministrador.html"
                         
-                }else{
+                }else if (true ){
                     fetch('https://backend-proyecto2ipc.herokuapp.com/Personas', {
                 method: 'GET', 
                 headers:{
@@ -68,83 +68,8 @@
                         if (usuario==response[i].Username && contraseña==response[i].Contra){
                             sessionStorage.setItem("Paciente", response[i].Nombre)
                             location.href="Modulo Pacientes.html"
+                         
                             
-                            
-                        }else{
-
-                            fetch('https://backend-proyecto2ipc.herokuapp.com/Enfermera', {
-                            method: 'GET', 
-                            headers:{
-                                'Content-Type': 'application/json',
-                                'Access-Control-Allow-Origin': '*',}})
-
-                            .then(res => res.json())
-                            .catch(err => {
-                                console.error('Error:', err)
-                                
-                            })
-                        
-                            .then(response =>{
-                                
-
-                                for (var i in response){
-                            
-                                    if (usuario==response[i].Username && contraseña==response[i].Contra){
-                                        sessionStorage.setItem("Enfermera", response[i].Nombre)
-                                        location.href="Modulo Enfermeras.html"
-                                    
-                                    }else{
-
-                                                
-                                                    fetch('https://backend-proyecto2ipc.herokuapp.com/Doctor', {
-                                                    method: 'GET', 
-                                                    headers:{
-                                                        'Content-Type': 'application/json',
-                                                        'Access-Control-Allow-Origin': '*',}})
-
-                                                    .then(res => res.json())
-                                                    .catch(err => {
-                                                        console.error('Error:', err)
-                                                        
-                                                    })
-                                                
-                                                    .then(response =>{
-                                                        
-
-                                                        for (var i in response){
-
-                                                        
-                                                    
-                                                            if (usuario==response[i].Username && contraseña==response[i].Contra){
-                                                                sessionStorage.setItem("Doctor", response[i].Nombre)
-                                                                location.href="Modulo Doctor.html"
-                                                            
-
-                                                            }else{
-                                                                alert("Usuario o contraseña incorrecta")
-                                                                break
-                                                            }
-                                                
-                                                        }
-                                                        
-                                                    })
-
-
-
-
-
-
-
-                                    }
-                        
-                                }
-                                
-                            })
-
-
-
-
-
                         }
             
                     }
@@ -152,14 +77,65 @@
                 })
                 
 
+                fetch('https://backend-proyecto2ipc.herokuapp.com/Enfermera', {
+                method: 'GET', 
+                headers:{
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',}})
+
+                .then(res => res.json())
+                .catch(err => {
+                    console.error('Error:', err)
+                    
+                })
+            
+                .then(response =>{
+                    
+
+                    for (var i in response){
                 
+                        if (usuario==response[i].Username && contraseña==response[i].Contra){
+                            sessionStorage.setItem("Enfermera", response[i].Nombre)
+                            location.href="Modulo Enfermeras.html"
+                         
+                        }
+            
+                    }
+                    
+                })
 
 
+                fetch('https://backend-proyecto2ipc.herokuapp.com/Doctor', {
+                method: 'GET', 
+                headers:{
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',}})
 
+                .then(res => res.json())
+                .catch(err => {
+                    console.error('Error:', err)
+                    
+                })
+            
+                .then(response =>{
+                    
 
+                    for (var i in response){
 
+                       
+                
+                        if (usuario==response[i].Username && contraseña==response[i].Contra){
+                            sessionStorage.setItem("Doctor", response[i].Nombre)
+                            location.href="Modulo Doctor.html"
+                           
 
-
+                        }else{
+                            console.log("USUARIO O CONTRASEÑA INCORECTA")
+                        }
+            
+                    }
+                    
+                })
                     
 
                
