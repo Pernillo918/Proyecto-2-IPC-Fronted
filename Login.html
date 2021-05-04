@@ -37,6 +37,7 @@
         <script>
 
             function PresionarBoton(){
+                var comprobacion
            
             var usuario =document.querySelector('#username').value
             var contraseña =document.querySelector('#contra').value
@@ -67,7 +68,7 @@
                         if (usuario==response[i].Username && contraseña==response[i].Contra){
                             sessionStorage.setItem("Paciente", response[i].Nombre)
                             location.href="Modulo Pacientes.html"
-
+                            comprobacion = true
                             
                         }
             
@@ -96,7 +97,7 @@
                         if (usuario==response[i].Username && contraseña==response[i].Contra){
                             sessionStorage.setItem("Enfermera", response[i].Nombre)
                             location.href="Modulo Enfermeras.html"
-                            
+                            comprobacion = true 
                         }
             
                     }
@@ -126,10 +127,10 @@
                         if (usuario==response[i].Username && contraseña==response[i].Contra){
                             sessionStorage.setItem("Doctor", response[i].Nombre)
                             location.href="Modulo Doctor.html"
-                           
+                            comprobacion= true
+
                         }else{
-                            console.log("USUARIO O CONTRASEÑA INCORRECTA")
-                            alert("Usuario o contraseña incorrecta")
+                            comprobacion= false
                         }
             
                     }
@@ -137,9 +138,11 @@
                 })
                     
 
-
-
+                if(comprobacion == false){
+                    alert("Usuario o contraseña incorrecta")
                 }
+
+         }
                 
                
 
