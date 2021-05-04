@@ -68,81 +68,101 @@
                         if (usuario==response[i].Username && contraseña==response[i].Contra){
                             sessionStorage.setItem("Paciente", response[i].Nombre)
                             location.href="Modulo Pacientes.html"
-                            comprobacion = true
                             
-                        }
-            
-                    }
-                    
-                })
-                
-
-                fetch('https://backend-proyecto2ipc.herokuapp.com/Enfermera', {
-                method: 'GET', 
-                headers:{
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',}})
-
-                .then(res => res.json())
-                .catch(err => {
-                    console.error('Error:', err)
-                    
-                })
-            
-                .then(response =>{
-                    
-
-                    for (var i in response){
-                
-                        if (usuario==response[i].Username && contraseña==response[i].Contra){
-                            sessionStorage.setItem("Enfermera", response[i].Nombre)
-                            location.href="Modulo Enfermeras.html"
-                            comprobacion = true 
-                        }
-            
-                    }
-                    
-                })
-
-
-                fetch('https://backend-proyecto2ipc.herokuapp.com/Doctor', {
-                method: 'GET', 
-                headers:{
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',}})
-
-                .then(res => res.json())
-                .catch(err => {
-                    console.error('Error:', err)
-                    
-                })
-            
-                .then(response =>{
-                    
-
-                    for (var i in response){
-
-                       
-                
-                        if (usuario==response[i].Username && contraseña==response[i].Contra){
-                            sessionStorage.setItem("Doctor", response[i].Nombre)
-                            location.href="Modulo Doctor.html"
-                            comprobacion= true
                             
-
                         }else{
-                            comprobacion= false
+
+                            fetch('https://backend-proyecto2ipc.herokuapp.com/Enfermera', {
+                            method: 'GET', 
+                            headers:{
+                                'Content-Type': 'application/json',
+                                'Access-Control-Allow-Origin': '*',}})
+
+                            .then(res => res.json())
+                            .catch(err => {
+                                console.error('Error:', err)
+                                
+                            })
+                        
+                            .then(response =>{
+                                
+
+                                for (var i in response){
+                            
+                                    if (usuario==response[i].Username && contraseña==response[i].Contra){
+                                        sessionStorage.setItem("Enfermera", response[i].Nombre)
+                                        location.href="Modulo Enfermeras.html"
+                                    
+                                    }else{
+
+                                                
+                                                    fetch('https://backend-proyecto2ipc.herokuapp.com/Doctor', {
+                                                    method: 'GET', 
+                                                    headers:{
+                                                        'Content-Type': 'application/json',
+                                                        'Access-Control-Allow-Origin': '*',}})
+
+                                                    .then(res => res.json())
+                                                    .catch(err => {
+                                                        console.error('Error:', err)
+                                                        
+                                                    })
+                                                
+                                                    .then(response =>{
+                                                        
+
+                                                        for (var i in response){
+
+                                                        
+                                                    
+                                                            if (usuario==response[i].Username && contraseña==response[i].Contra){
+                                                                sessionStorage.setItem("Doctor", response[i].Nombre)
+                                                                location.href="Modulo Doctor.html"
+                                                            
+
+                                                            }else{
+                                                                alert("Usuario o contraseña incorrecta")
+                                                            
+                                                            }
+                                                
+                                                        }
+                                                        
+                                                    })
+
+
+
+
+
+
+
+                                    }
+                        
+                                }
+                                
+                            })
+
+
+
+
+
                         }
             
                     }
                     
                 })
+                
+
+                
+
+
+
+
+
+
+
                     
 
-                if(comprobacion = false){
-                    console.log("Usuario o contraseña incorrecta")
-                    alert("Usuario o contraseña incorrecta")
-                }
+               
 
          }
                 
